@@ -1,0 +1,474 @@
+{
+  "freqtrade/freqtrade-strategies": {
+    "last_pushed": "2025-01-20T18:25:16+00:00",
+    "url": "https://github.com/freqtrade/freqtrade-strategies"
+  },
+  "iterativv/NostalgiaForInfinity": {
+    "last_pushed": "2025-01-30T16:27:12+00:00",
+    "url": "https://github.com/iterativv/NostalgiaForInfinity"
+  },
+  "nateemma/strategies": {
+    "last_pushed": "2024-06-04T03:01:51+00:00",
+    "url": "https://github.com/nateemma/strategies"
+  },
+  "ediscoins/strategy": {
+    "last_pushed": "2024-09-02T10:51:23+00:00",
+    "url": "https://github.com/ediscoins/strategy"
+  },
+  "hibana2077/fqtrade": {
+    "last_pushed": "2024-09-11T08:20:27+00:00",
+    "url": "https://github.com/hibana2077/fqtrade"
+  },
+  "Lijunnan0113/Lijunnan0113-Lijunnan_Freqtrade_Strategy": {
+    "last_pushed": "2024-09-24T05:53:13+00:00",
+    "url": "https://github.com/Lijunnan0113/Lijunnan0113-Lijunnan_Freqtrade_Strategy"
+  },
+  "mikedigriz/freqtrade-strategy-mikedigriz": {
+    "last_pushed": "2024-11-17T09:12:11+00:00",
+    "url": "https://github.com/mikedigriz/freqtrade-strategy-mikedigriz"
+  },
+  "14790897/freqtrade-strategy": {
+    "last_pushed": "2024-11-18T03:24:28+00:00",
+    "url": "https://github.com/14790897/freqtrade-strategy"
+  },
+  "ssssi/freqtrade_strs": {
+    "last_pushed": "2024-12-06T09:28:26+00:00",
+    "url": "https://github.com/ssssi/freqtrade_strs"
+  },
+  "Mounik/Sample_Scalping": {
+    "last_pushed": "2024-12-06T17:55:46+00:00",
+    "url": "https://github.com/Mounik/Sample_Scalping"
+  },
+  "marcosfreitas/freqtrade-strategies": {
+    "last_pushed": "2024-12-08T12:44:02+00:00",
+    "url": "https://github.com/marcosfreitas/freqtrade-strategies"
+  },
+  "ynstf/Good-Freqtrade-Strategies": {
+    "last_pushed": "2025-01-13T15:09:09+00:00",
+    "url": "https://github.com/ynstf/Good-Freqtrade-Strategies"
+  },
+  "ShahAnuj2610/my-freqtrade": {
+    "last_pushed": "2025-01-22T10:47:32+00:00",
+    "url": "https://github.com/ShahAnuj2610/my-freqtrade"
+  },
+  "mashiroissocute/freqtrade-grid": {
+    "last_pushed": "2025-01-26T15:30:09+00:00",
+    "url": "https://github.com/mashiroissocute/freqtrade-grid"
+  },
+  "Mastaaa1987/freqtrade-strategie": {
+    "last_pushed": "2025-01-29T17:25:27+00:00",
+    "url": "https://github.com/Mastaaa1987/freqtrade-strategie"
+  },
+  "cyberjunky/freqtrade-cyber-bots": {
+    "last_pushed": "2025-01-31T06:24:18+00:00",
+    "url": "https://github.com/cyberjunky/freqtrade-cyber-bots"
+  },
+  "MrShellRobot/freqtrade-strategies": {
+    // collect, not from their own, but still useful to look at
+    "last_pushed": "2024-12-31T03:19:24+00:00",
+    "url": "https://github.com/MrShellRobot/freqtrade-strategies"
+  },
+  "keithorange/HUGE_FreqTrade_Strategy_Collection": {
+    // collect, not from their own, but still useful to look at
+    "last_pushed": "2024-04-09T00:52:57+00:00",
+    "url": "https://github.com/keithorange/HUGE_FreqTrade_Strategy_Collection"
+  },
+  "viktors1982/trading": {
+    // collect, not from their own, but still useful to look at
+    "last_pushed": "2024-04-10T10:32:25+00:00",
+    "url": "https://github.com/viktors1982/trading"
+  },
+  "pumanitro/tral": {
+    // collect, not from their own, but still useful to look at
+    "last_pushed": "2024-05-30T16:29:20+00:00",
+    "url": "https://github.com/pumanitro/tral"
+  },
+  "fiustif/NFI-Mod-fstf": {
+    // not interested, consider next time if any update
+    "last_pushed": "2025-01-26T20:54:48+00:00",
+    "url": "https://github.com/fiustif/NFI-Mod-fstf"
+  },
+  "geovedi/ngepet": {
+    // not interested, consider next time if any update
+    "last_pushed": "2025-01-10T05:57:09+00:00",
+    "url": "https://github.com/geovedi/ngepet"
+  },
+  "jonghae5/freqtrade-custom": {
+    // not interested, consider next time if any update
+    "last_pushed": "2024-12-05T07:11:27+00:00",
+    "url": "https://github.com/jonghae5/freqtrade-custom"
+  },
+  "adrmarabuco/projeto-deeplearning-2024.2": {
+    // fregAI
+    "last_pushed": "2024-12-17T01:32:46+00:00",
+    "url": "https://github.com/adrmarabuco/projeto-deeplearning-2024.2"
+  },
+  "wtriantis/freqtrade_user_data": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/wtriantis/freqtrade_user_data"
+  },
+  "TheoBrigitte/freqtrade": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/TheoBrigitte/freqtrade"
+  },
+  "Netanelshoshan/freqAI-LSTM": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Netanelshoshan/freqAI-LSTM"
+  },
+  "mrzdev/refreshpairlist": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/mrzdev/refreshpairlist"
+  },
+  "imsatoshi/GeneTrader": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/imsatoshi/GeneTrader"
+  },
+  "hamidreza07/freqai-strategy": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/hamidreza07/freqai-strategy"
+  },
+  "frostaura/fa.services.plutus": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/frostaura/fa.services.plutus"
+  },
+  "fortesenselabs/trade_flow": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/fortesenselabs/trade_flow"
+  },
+  "djienne/YOUTUBE_STRATEGIES_FREQTRADE": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/djienne/YOUTUBE_STRATEGIES_FREQTRADE"
+  },
+  "Branly76/DecoBbDca": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Branly76/DecoBbDca"
+  },
+  "AlexCryptoKing/freqtrade": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/AlexCryptoKing/freqtrade"
+  },
+  "AlexCryptoKing/freqailstm": {
+    // fregAI
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/AlexCryptoKing/freqailstm"
+  },
+  "hamidreza07/freqtrade": {
+    // fregAI
+    "last_pushed": "2024-09-09T07:43:08+00:00",
+    "url": "https://github.com/hamidreza07/freqtrade"
+  },
+  "twbrandon7/rl-trading-freqtrade": {
+    // freqAI
+    "last_pushed": "2024-08-10T08:16:22+00:00",
+    "url": "https://github.com/twbrandon7/rl-trading-freqtrade"
+  },
+  "freqtrade/freqtrade": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/freqtrade/freqtrade",
+    "strategy_files": []
+  },
+  "Fourseascocreation/ccxt": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Fourseascocreation/ccxt",
+    "strategy_files": []
+  },
+  "davidzr/freqtrade-strategies": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/davidzr/freqtrade-strategies"
+  },
+  "freqtrade/technical": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/freqtrade/technical"
+  },
+  "froggleston/freqtrade-frogtrade9000": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/froggleston/freqtrade-frogtrade9000"
+  },
+  "squidfunk/mkdocs-material": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/squidfunk/mkdocs-material"
+  },
+  "froggleston/freqtrade_analysis_notebook": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/froggleston/freqtrade_analysis_notebook"
+  },
+  "stash86/freqtrade_stuff": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/stash86/freqtrade_stuff"
+  },
+  "markdregan/FreqAI-Marcos-Lopez-De-Prado": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/markdregan/FreqAI-Marcos-Lopez-De-Prado"
+  },
+  "freqtrade/ftui": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/freqtrade/ftui"
+  },
+  "ShahAnuj2610/my-freqtrade-nfi-nextgen": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/ShahAnuj2610/my-freqtrade-nfi-nextgen"
+  },
+  "keryc/crypto-bot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/keryc/crypto-bot"
+  },
+  "raphant/lazyft": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/raphant/lazyft"
+  },
+  "freqtrade/ft_discord_bot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/freqtrade/ft_discord_bot"
+  },
+  "froggleston/freqtrade-discord": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/froggleston/freqtrade-discord"
+  },
+  "paperswithbacktest/awesome-systematic-trading": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/paperswithbacktest/awesome-systematic-trading"
+  },
+  "ccxt/ccxt": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/ccxt/ccxt"
+  },
+  "drybx/FT-Updater": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/drybx/FT-Updater"
+  },
+  "olaolatg/Freqtrade": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/olaolatg/Freqtrade"
+  },
+  "lsiem/NFI-NG": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/lsiem/NFI-NG"
+  },
+  "Minisagee/Freqtrade_TUI": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Minisagee/Freqtrade_TUI"
+  },
+  "keithorange/FastLoad_FreqUI_MultiBots": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/keithorange/FastLoad_FreqUI_MultiBots"
+  },
+  "aneasystone/github-trending": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/aneasystone/github-trending"
+  },
+  "rnikitin/QuantGPT": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/rnikitin/QuantGPT"
+  },
+  "Quantweb3-com/NexusTrader": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Quantweb3-com/NexusTrader"
+  },
+  "DerSalvador/freqtrade-k8s-helm-chart": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/DerSalvador/freqtrade-k8s-helm-chart"
+  },
+  "hippocritical/delist_scraper": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/hippocritical/delist_scraper"
+  },
+  "DutchCryptoDad/bamboo-ta": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/DutchCryptoDad/bamboo-ta"
+  },
+  "diamond120/freqtrade-websocket": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/diamond120/freqtrade-websocket"
+  },
+  "freqtrade23/freqtrade": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/freqtrade23/freqtrade"
+  },
+  "RudoRonuma/freqtrade": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/RudoRonuma/freqtrade"
+  },
+  "wilsonfreitas/awesome-quant": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/wilsonfreitas/awesome-quant"
+  },
+  "pybughive/pybughive": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/pybughive/pybughive"
+  },
+  "peterdegraaf1991/freqtrade-develop": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/peterdegraaf1991/freqtrade-develop"
+  },
+  "firmai/financial-machine-learning": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/firmai/financial-machine-learning"
+  },
+  "jacobsterling/trading-algorithms": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/jacobsterling/trading-algorithms"
+  },
+  "devradheee/Stock-market-Prediction-Model": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/devradheee/Stock-market-Prediction-Model"
+  },
+  "abbaselmas/my-freqtrade-stuff": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/abbaselmas/my-freqtrade-stuff"
+  },
+  "SitoCH/hyperliquid-telegram-bot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/SitoCH/hyperliquid-telegram-bot"
+  },
+  "Sshimaninja/Freqtrade_Public": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Sshimaninja/Freqtrade_Public"
+  },
+  "ango-ya/ccxt": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/ango-ya/ccxt"
+  },
+  "imKXNNY/AlpacaCryptoTradingBot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/imKXNNY/AlpacaCryptoTradingBot"
+  },
+  "slickcharmer/evmautomation": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/slickcharmer/evmautomation"
+  },
+  "wesleymutwiri/mpesa-statement-retriever": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/wesleymutwiri/mpesa-statement-retriever"
+  },
+  "djismgaming/djismgaming.github.io": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/djismgaming/djismgaming.github.io"
+  },
+  "SoftwareKings/evmautomation": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/SoftwareKings/evmautomation"
+  },
+  "2lambda123/awesome-systematic-trading": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/2lambda123/awesome-systematic-trading"
+  },
+  "PeterRSVIER/ccxt-master": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/PeterRSVIER/ccxt-master"
+  },
+  "zengzzzzz/golang-trending-archive": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/zengzzzzz/golang-trending-archive"
+  },
+  "johe123qwe/github-trending": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/johe123qwe/github-trending"
+  },
+  "Likos50/freqtrade-develop": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Likos50/freqtrade-develop"
+  },
+  "peterdegraaf1991/ccxt-master": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/peterdegraaf1991/ccxt-master"
+  },
+  "ZonghaoLi777/githubTrending": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/ZonghaoLi777/githubTrending"
+  },
+  "sampsonv/github-trending": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/sampsonv/github-trending"
+  },
+  "hiifong/starList": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/hiifong/starList"
+  },
+  "wisarmy/exbot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/wisarmy/exbot"
+  },
+  "Haoyun8/Freqai11.py": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Haoyun8/Freqai11.py"
+  },
+  "behradhesami/Projects": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/behradhesami/Projects"
+  },
+  "28dec/E0V1E-HO": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/28dec/E0V1E-HO"
+  },
+  "zmomz/freq_strategies": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/zmomz/freq_strategies"
+  },
+  "Serge-sudo/EnsembleTradingStrategy": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Serge-sudo/EnsembleTradingStrategy"
+  },
+  "catman77/FQ_strat": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/catman77/FQ_strat"
+  },
+  "ipqhjjybj/trade_strategy": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/ipqhjjybj/trade_strategy"
+  },
+  "xamie01/project-samuel": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/xamie01/project-samuel"
+  },
+  "KidsSeeGhxsts/TradingBot": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/KidsSeeGhxsts/TradingBot"
+  },
+  "KevinGastelum/MyQuantsFinance": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/KevinGastelum/MyQuantsFinance"
+  },
+  "keithorange/FreqTrade_Helpers": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/keithorange/FreqTrade_Helpers"
+  },
+  "sonnhfit/SonAgent": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/sonnhfit/SonAgent"
+  },
+  "keithorange/FreqTradeCustomOrders": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/keithorange/FreqTradeCustomOrders"
+  },
+  "bearvar/freqtrade_stuff": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/bearvar/freqtrade_stuff"
+  },
+  "DaxxTrias/NFI_FQ": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/DaxxTrias/NFI_FQ"
+  },
+  "s4ng/freqtrade-strategy": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/s4ng/freqtrade-strategy"
+  },
+  "Likos50/ccxt-master": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/Likos50/ccxt-master"
+  },
+  "prokazzzzza/Monitoring-Update-NostalgiaForInfinityX5": {
+    "last_pushed": "9999-12-31T23:59:59",
+    "url": "https://github.com/prokazzzzza/Monitoring-Update-NostalgiaForInfinityX5"
+  }
+}

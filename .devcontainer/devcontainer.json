@@ -1,14 +1,18 @@
 {
     "name": "freqtrade Develop",
-    "image": "ghcr.io/freqtrade/freqtrade-devcontainer:latest",
+    "image": "ghcr.io/freqtrade/freqtrade:develop_freqaitorch",
+    // "image": "ghcr.io/freqtrade/freqtrade-devcontainer:latest",
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [
-        8080
+        8081
     ],
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/freqtrade,type=bind,consistency=cached",
     // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
     "remoteUser": "ftuser",
-    "onCreateCommand": "pip install --user -e .",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
+    "onCreateCommand": ["pip install --user -e ."],
     "postCreateCommand": "freqtrade create-userdir --userdir user_data/",
     "workspaceFolder": "/workspaces/freqtrade",
     "customizations": {
@@ -27,7 +31,9 @@
                     },
                     "editor.formatOnSave": true,
                     "editor.defaultFormatter": "charliermarsh.ruff"
-                }
+                },
+                "python.dataScience.jupyterServerURI": "local",
+                "python.dataScience.notebookFileRoot": "${workspaceFolder}"
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
@@ -38,7 +44,10 @@
                 "ms-azuretools.vscode-docker",
                 "vscode-icons-team.vscode-icons",
                 "github.vscode-github-actions",
-            ],
+                "ms-toolsai.jupyter",
+                "eamodio.gitlens",
+                "mhutchie.git-graph"
+            ]
         }
     }
 }
