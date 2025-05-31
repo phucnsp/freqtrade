@@ -1,0 +1,215 @@
+1. Crawl useful repo on github that might relate to freqtrade => help to learn the community working space of freqtrade and utils repo that might help many steps
+2. From the web ninja (contains many strategies), run backtest with ADA on 3 timeframes(5m, 15m, 1h) and 3 timerange(downtrend, sideway, uptrend) => pick the 4 strategies that have resilient performance on
+those timeranges and timeframes. See notebooks directory for the code, and backtest_results for the result of backtest.
+3. Setup dryrun on VPS, monitoring on local pc using port forwarding with SSH
+4. Based on top 4 strategies, understand them and custom them to adapt with what we want: ADA only, no cutloss, by the dip mindset, profit is the ADA collected.
+
+
+##########################################################################
+############ setup
+##########################################################################
+mkdir ft_userdata
+cd ft_userdata/
+# Download the docker-compose file from the repository
+curl https://raw.githubusercontent.com/freqtrade/freqtrade/stable/docker-compose.yml -o docker-compose.yml
+
+# Pull the freqtrade image
+docker compose pull
+
+# Create user directory structure
+docker compose run --rm freqtrade create-userdir --userdir user_data
+
+# Create configuration - Requires answering interactive questions
+docker compose run --rm freqtrade new-config --config user_data/config.json
+
+##########################################################################
+############# Strategy
+##########################################################################
+
+freqtrade new-strategy --strategy AwesomeStrategy --template advanced
+freqtrade list-strategies
+
+##########################################################################
+############# config, download data, backtesting
+##########################################################################
+docker compose run --rm freqtrade new-config --config user_data/config_backtest.json
+freqtrade list-data -p BTC/USDT ADA/USDT --config user_data/config_live_JackieStrategy.json --show-timerange
+
+freqtrade download-data -p BTC/USDT --erase --timerange=20180101-20250430 --timeframe 5m --config user_data/config_live_JackieStrategy.json
+
+docker compose run --rm freqtrade download-data --config user_data/config_backtest.json --prepend --timerange=20180101-20250430 --timeframe 5m
+time freqtrade list-data --show-timerange --data-format-ohlcv feather --config user_data/config_backtest.json
+docker compose run --rm  freqtrade list-data --userdir ~/.freqtrade/user_data/
+freqtrade list-data --show --trades
+
+docker compose run --rm freqtrade backtesting --config user_data/config_backtest.json --strategy SampleStrategy --breakdown day week --cache none --timeframe 1h --timeframe-detail 5m --timerange=20241201-20241230
+docker compose run --rm freqtrade backtesting --config user_data/config_backtest.json --strategy-list Strategy001 Strategy002 --breakdown day week --cache none --export trades/signals/none --export-filename=/tmp/mystrat_backtest.json --timerange=20241205-20250501
+docker compose run --rm freqtrade backtesting --config user_data/config_backtest.json --breakdown day week --cache none --timeframe 1h --timeframe-detail 5m --timerange=20241201-20241230 --strategy-list Strategy004 GridV6_tmp7
+
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-groups 0 1 2 3 4 5
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-groups 0 2 --enter-reason-list enter_tag_a enter_tag_b --exit-reason-list roi custom_exit_tag_a stop_loss
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-groups 0 2 --enter-reason-list enter_tag_a enter_tag_b --exit-reason-list roi custom_exit_tag_a stop_loss --indicator-list rsi rsi_1h bb_lowerband ema_9 macd macdsignal
+docker compose run --rm freqtrade backtesting-analysis -c user_data/config.json --analysis-groups 0 --indicator-list chikou_span tenkan_sen --entry-only
+docker compose run --rm freqtrade backtesting-analysis -c user_data/config.json --analysis-groups 0 --indicator-list chikou_span tenkan_sen --exit-only
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --timerange 20220101-20220201
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --rejected-signals
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv --rejected-signals --analysis-groups 0 1
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv --analysis-csv-path another/data/path/
+
+##########################################################################
+############# Look ahead analysis https://www.freqtrade.io/en/latest/lookahead-analysis/
+##########################################################################
+
+freqtrade lookahead-analysis --config user_data/config_backtest.json --timeframe 1h --timerange 20221201-20240930 --timeframe-detail 5m --strategy-path user_data/strategies/ --strategy-list SMAOPv1_TTF NFI5MOHO2 GeneTrader_gen5_1726907875_9248 ElliotV5HO --lookahead-analysis-exportfilename lookahead_analysis.csv --logfile user_data/logs/lookahead_analysis.log
+
+##########################################################################
+############# Recursive analysis https://www.freqtrade.io/en/latest/recursive-analysis/
+##########################################################################
+
+freqtrade recursive-analysis --timeframe 5m --timerange 20221201-20240930 --logfile user_data/logs/recursive_analysis.log --config user_data/config_backtest.json --strategy SMAOPv1_TTF
+
+##########################################################################
+############# Hyperopt
+##########################################################################
+
+docker compose run --rm freqtrade hyperopt --strategy JackieStrategy --hyperopt-loss ShortTradeDurHyperOptLoss --spaces buy sell --config user_data/config_live_JackieStrategy.json --timerange 20241112-20250430 --epochs 1000 --random-state 10 --log-file user_data/logs/hyperopt_JackieStrategy.log
+
+--print-json
+--job-workers -1
+
+
+docker compose run --rm freqtrade hyperopt-list --profitable --hyperopt-filename *.fthypt --export-csv # lists all previously evaluated epochs, provides an overview of the results.
+docker compose run --rm freqtrade hyperopt-list --profitable --no-detail
+docker compose run --rm freqtrade hyperopt-show --best --breakdown --hyperopt-filename # shows detailed information about a specific epoch
+
+features:
+- Optimizing max_entry_position_adjustment using property()
+- select loss-function
+- can Optimizing protections
+
+
+
+##########################################################################
+############# Strategy Dev - Notebook + WebUI
+##########################################################################
+- WebUI: docker compose -f docker-compose_webserver.yml up -d => visualize entry and exit points, compare with dataframe on notebook
++ mainly use config_backtest.json, not the specific config of each strategy (that for dry_run/live mode).
+Setting dedicated for each strategy should be put in each .py file
+
+- notebooks/strategy_analysis_example.ipynb
+
+
+##########################################################################
+############# Setup VPS and Dry run
+##########################################################################
+- VPS panel and other related websites are bookmarked in Microsoft Edge
+- SSH remote vps: sshpass -p <vps_password> ssh root@103.112.210.187
+- VPS use tmux to navigate around, see tmux session at the end of this file
++ tmux ls => list the current running tmux session
++ tmux attach -t <session_name> => go to the session we want
++ tmux new -s <new_tmux_session> => create new tmux session
++ Ctrl_A + v/h => split the screen
++ can use mouse to select the pane
++ if want to copy file content => exit tmux session, use nano to open file and copy content with Command_C + Command_V as normal
+- install docker engine: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+- use docker to run freqtrade, go to install with docker session in freqtrade docs.
+- Each dry_run will have separate: (1) config.json, (2) strategy file, (3) database sqlite
+- copy strategy and config from local to vps: scp user_data/config_live_JackieStrategy.json root@103.112.210.187:/root/ft_userdata/user_data/config_live_JackieStrategy.json
+- Dry_run will be triggered using docker-compose.yml file, with the command: docker compose up -d (all parameter should be stored in static files like config.json)
+- we can monitor the bot run using either telegram or WebUI
+- WebUI:
+    + docker-compose.yaml: ports: 127.0.0.1:3333:8080 => vps port 3333 is pointing to the port 8080 of docker container (this container is serving the bot)
+    + ssh -L 8080:localhost:3333 root@103.112.210.187 => connect port 8080 on local pc to the remote pvs port 3333
+
+
+##########################################################################
+############# Strategy development
+##########################################################################
+- copy notebook strategy_analysis_example.ipynb to work on a new strategy
+
+
+
+Reference: https://www.freqtrade.io/en/stable/data-analysis/
+
+
+
+##########################################################################
+############# Adaptive prediction modeling (freqAI)
+##########################################################################
+
+
+
+
+
+
+
+Reference: https://emergentmethods.medium.com/freqai-from-price-to-prediction-6fadac18b665
+
+
+
+
+
+
+
+##########################################################################
+############# Edge position sizing
+##########################################################################
+
+
+
+##########################################################################
+############# Manageable via Telegram
+##########################################################################
+this section is easy, just read the docs
+
+##########################################################################
+############# vim tips
+##########################################################################
+
+# open file                => vim <file_name>
+# open file and view only  => vim -R <file_name>
+# enable line number       => :set number / :set nonumber
+# go to a linenumber       => :linenumber
+# go the start/end of file => gg / G
+# search => /searchterm    => n / N for next or previous match
+# Scroll down half screen  => Ctrl + d
+# Scroll up half screen    => Ctrl + u
+# save and exit            => :wq
+
+##########################################################################
+############# .tmux.conf
+##########################################################################
+
+# Change the prefix key to Ctrl+a (more convenient than default Ctrl+b)
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Start tmux in the right environment
+# set -g default-command "reattach-to-user-namespace -l zsh"
+
+# Enable mouse support
+set -g mouse on
+
+# Start window numbering at 1 (instead of 0)
+set -g base-index 1
+
+# Set easier window split keys
+bind-key v split-window -h
+bind-key h split-window -v
+
+# Reload configuration file
+bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+
+# Improve colors
+set -g default-terminal "screen-256color"
+
+# Quick pane cycling
+unbind ^A
+bind ^A select-pane -t :.+
+
+# Set scrollback buffer size
+set -g history-limit 10000
+
+# reference: https://go.lightnode.com/tech/install-tmux-on-ubuntu#q7-how-do-i-synchronize-input-across-panes
