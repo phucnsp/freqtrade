@@ -39,11 +39,11 @@
         "unit": "minutes"
     },
     "order_types": {
-        "buy": "limit",
-        "sell": "limit",
-        "emergencysell": "market",
-        "forcebuy": "market",
-        "forcesell": "market",
+        "entry": "limit",
+        "exit": "limit",
+        "emergency_exit": "market",
+        "force_entry": "market",
+        "force_exit": "market",
         "stoploss": "market",
         "stoploss_on_exchange": false,
         "stoploss_on_exchange_interval": 60
@@ -122,7 +122,7 @@
         "balance_dust_level": 0.01
     },
     "initial_state": "running",
-    "force_entry_enable": false,
+    "force_entry_enable": true,
     "internals": {
         "process_throttle_secs": 5
     }
