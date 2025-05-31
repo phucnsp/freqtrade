@@ -86,7 +86,7 @@
     ],
     "recursive_strategy_search" : true,
     "telegram": {
-        "enabled": true,
+        "enabled": false,
         "token": "",
         "chat_id": "",
         "allow_custom_messages": true,
