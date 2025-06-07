@@ -131,7 +131,7 @@ class JackieStrategy(IStrategy):
 
     # These values can be overridden in the config.
     use_exit_signal = (
-        True  # only exit with signal, since we are trading with good coin, can hold longer
+        False # only exit with signal, since we are trading with good coin, can hold longer
     )
     exit_profit_only = True  # if buy and then price down and sell triggered, no exit, continue hold
     exit_profit_offset = 0.01
@@ -1018,16 +1018,17 @@ class JackieStrategy(IStrategy):
         if trade.has_open_orders:
             return None
 
-        # Take half of the profit at +5%
-        # if current_profit > 0.05 and trade.nr_of_successful_exits == 0:
-        #     return -(trade.stake_amount / 2), "half_profit"
-
         # this dataframe is raw one, without shift(-1) for trade placement
         dataframe, _ = self.dp.get_analyzed_dataframe(trade.pair, self.timeframe)
         enter_arr = dataframe['enter_long']
+        exit_arr = dataframe['exit_long']
+
+        if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
+            logger.info("Found exit signal, checking for position adjustment...")
+            return -(trade.stake_amount / 4), "partial_exit"
 
         if enter_arr.iat[-1] == 1.0: # only consider candle with signal entry
-
+            logger.info("Found entry signal, checking for position adjustment...")
             filled_entry_orders = trade.select_filled_orders(trade.entry_side)
             initial_filled_entry_order = filled_entry_orders[0]
             latest_filled_entry_order  = filled_entry_orders[-1]
