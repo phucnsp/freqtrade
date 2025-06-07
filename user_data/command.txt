@@ -23,24 +23,19 @@ docker compose run --rm freqtrade create-userdir --userdir user_data
 docker compose run --rm freqtrade new-config --config user_data/config.json
 
 ##########################################################################
-############# Strategy
-##########################################################################
-
-freqtrade new-strategy --strategy AwesomeStrategy --template advanced
-freqtrade list-strategies
-
-##########################################################################
-############# config, download data, backtesting
+############# config, download data
 ##########################################################################
 docker compose run --rm freqtrade new-config --config user_data/config_backtest.json
 freqtrade list-data -p BTC/USDT ADA/USDT --config user_data/config_live_JackieStrategy.json --show-timerange
-
 freqtrade download-data -p BTC/USDT --erase --timerange=20180101-20250430 --timeframe 5m --config user_data/config_live_JackieStrategy.json
-
 docker compose run --rm freqtrade download-data --config user_data/config_backtest.json --prepend --timerange=20180101-20250430 --timeframe 5m
 time freqtrade list-data --show-timerange --data-format-ohlcv feather --config user_data/config_backtest.json
 docker compose run --rm  freqtrade list-data --userdir ~/.freqtrade/user_data/
 freqtrade list-data --show --trades
+
+##########################################################################
+############# backtesting
+##########################################################################
 
 docker compose run --rm freqtrade backtesting --config user_data/config_backtest.json --strategy SampleStrategy --breakdown day week --cache none --timeframe 1h --timeframe-detail 5m --timerange=20241201-20241230
 docker compose run --rm freqtrade backtesting --config user_data/config_backtest.json --strategy-list Strategy001 Strategy002 --breakdown day week --cache none --export trades/signals/none --export-filename=/tmp/mystrat_backtest.json --timerange=20241205-20250501
@@ -105,6 +100,9 @@ Setting dedicated for each strategy should be put in each .py file
 ##########################################################################
 - VPS panel and other related websites are bookmarked in Microsoft Edge
 - SSH remote vps: sshpass -p <vps_password> ssh root@103.112.210.187
+- AUTOSSH to keep connect with vps, avoid broken pipe: autossh -M 0 -f -N -o "ServerAliveInterval=30" -o "ServerAliveCountMax=3" -L 8080:localhost:3333 root@103.112.210.187
+- To check autossh working: lsof -i :8080, ps aux | grep autossh
+- To avoid repeating input password to login VPS, use: ssh-copy-id root@103.112.210.187 (it will copy publibc key of RSA of local pc and paste into remote VPS)
 - VPS use tmux to navigate around, see tmux session at the end of this file
 + tmux ls => list the current running tmux session
 + tmux attach -t <session_name> => go to the session we want
@@ -126,36 +124,19 @@ Setting dedicated for each strategy should be put in each .py file
 ##########################################################################
 ############# Strategy development
 ##########################################################################
+
+freqtrade new-strategy --strategy AwesomeStrategy --template advanced
+freqtrade list-strategies
+
 - copy notebook strategy_analysis_example.ipynb to work on a new strategy
 
-
-
 Reference: https://www.freqtrade.io/en/stable/data-analysis/
-
-
 
 ##########################################################################
 ############# Adaptive prediction modeling (freqAI)
 ##########################################################################
 
-
-
-
-
-
-
 Reference: https://emergentmethods.medium.com/freqai-from-price-to-prediction-6fadac18b665
-
-
-
-
-
-
-
-##########################################################################
-############# Edge position sizing
-##########################################################################
-
 
 
 ##########################################################################
@@ -213,3 +194,4 @@ bind ^A select-pane -t :.+
 set -g history-limit 10000
 
 # reference: https://go.lightnode.com/tech/install-tmux-on-ubuntu#q7-how-do-i-synchronize-input-across-panes
+
