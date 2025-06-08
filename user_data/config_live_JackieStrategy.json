@@ -33,7 +33,7 @@
     "trading_mode": "spot",
     "margin_mode": "",
     "unfilledtimeout": {
-        "entry": 30,
+        "entry": 43200, // one month, long bcz we wait for proper price
         "exit": 30,
         "exit_timeout_count": 0,
         "unit": "minutes"
