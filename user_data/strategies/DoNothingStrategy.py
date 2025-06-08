@@ -803,9 +803,9 @@ class DoNothingStrategy(IStrategy):
         # If available_capital have more than 10 USDT from its original amount in the wallet, we will accumulate it in ADA
         # only update available_capital in config if needed
         total_usdt = self.wallets.get_total('USDT')
-        if total_usdt > (self.available_capital + 10):
+        if total_usdt > (10+10): #(self.available_capital + 10):
             logger.info(f"Available capital: {self.available_capital}, total USDT: {total_usdt}")
-            stake_amount = total_usdt - self.available_capital
+            stake_amount = total_usdt - 10 #self.available_capital
             logger.info(f"Accumulating {stake_amount} USDT in ADA")
             return stake_amount, "accumulate_ada"
         logger.info(f"total USDT: {total_usdt} is not enough to accumulate in ADA")
