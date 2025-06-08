@@ -1,5 +1,14 @@
 ---
 services:
+  webhook:
+    build:
+      context: user_data/webhook_server
+      dockerfile: Dockerfile
+    container_name: webhook_server
+    ports:
+      - "8083:8083"
+    command: uvicorn webhook_server:app --host 0.0.0.0 --port 8083
+
   freqtrade:
     image: freqtradeorg/freqtrade:stable
     # image: freqtradeorg/freqtrade:develop

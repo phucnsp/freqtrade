@@ -128,7 +128,7 @@
     },
     "webhook": {
         "enabled": true,
-        "url": "http://127.0.0.1:8083/closed_trade",
+        "url": "http://webhook:8083/closed_trade",
         "entry": {
             "value1": "Buying {pair}",
             "value2": "limit {limit:8f}",
