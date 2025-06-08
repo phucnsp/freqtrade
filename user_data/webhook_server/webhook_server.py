@@ -8,8 +8,13 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 
 app = FastAPI(title="Freqtrade Webhook Receiver")
 
+class TradePayload(BaseModel):
+    value1: str
+    value2: str
+    value3: str
+
 @app.post("/closed_trade")
-async def trade_handler(request: Request):
+async def trade_handler(payload: TradePayload):
     """
     Receives a webhook from Freqtrade when a trade is closed (or entry/entry_cancel).
     Freqtrade will POST JSON like:
@@ -20,8 +25,12 @@ async def trade_handler(request: Request):
       }
     """
     logging.info("💡 Freqtrade webhook received")
-    data = await request.json()
-    logging.info(f"Received data: {data}")
+    logging.info("💡 Freqtrade webhook received")
+    logging.info(f"  • value1: {payload.value1}")
+    logging.info(f"  • value2: {payload.value2}")
+    logging.info(f"  • value3: {payload.value3}")
+    # data = await request.json()
+    # logging.info(f"Received data: {data}")
 
     # TODO: Add your business logic here, e.g.:
     #  - send a notification
