@@ -31,5 +31,5 @@ services:
     command: >
       trade
       --logfile /freqtrade/user_data/logs/DoNothingStrategy.log
-      --config /freqtrade/user_data/config_live_DoNothingStrategy.json
+      --config /freqtrade/user_data/strategies/config_live_DoNothingStrategy.json
       --strategy DoNothingStrategy
