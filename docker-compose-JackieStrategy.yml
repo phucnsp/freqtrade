@@ -9,7 +9,7 @@ services:
       - "8083:8083"
     volumes:
       - user_data/webhook_server:/app      # mount code in at runtime
-    command: uvicorn webhook_server:app --host 0.0.0.0 --port 8083
+    command: uvicorn webhook_server:app --host 0.0.0.0 --port 8083 --reload
 
   freqtrade:
     image: freqtradeorg/freqtrade:stable
