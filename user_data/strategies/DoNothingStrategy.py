@@ -808,7 +808,7 @@ class DoNothingStrategy(IStrategy):
             stake_amount = total_usdt - self.available_capital
             logger.info(f"Accumulating {stake_amount} USDT in ADA")
             return stake_amount, "accumulate_ada"
-
+        logger.info(f"total USDT: {total_usdt} is not enough to accumulate in ADA")
         return None
 
     def leverage(
