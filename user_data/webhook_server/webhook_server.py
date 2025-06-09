@@ -25,20 +25,15 @@ async def trade_handler(payload: Request):
       }
     """
     logging.info("💡 Freqtrade webhook received")
-    # logging.info(f"Webhook payload: {payload}")
-    # logging.info(f"  • value1: {payload.value1}")
-    # logging.info(f"  • value2: {payload.value2}")
-    # logging.info(f"  • value3: {payload.value3}")
-    # data = await request.json()
-    # logging.info(f"Received data: {data}")
 
-    # TODO: Add your business logic here, e.g.:
-    #  - send a notification
-    #  - write to a database
-    #  - trigger another service
-    #  - etc.
-
-    return {"status": "success", "message": "Webhook processed"}
+    try:
+        logging.info("Processing payload")
+        payload = await payload.json()
+        logging.info(f"Webhook payload: {payload}")
+        return {"status": "success", "message": "Webhook processed"}
+    except Exception as e:
+        logging.error(f"Error processing webhook: {e}")
+        raise HTTPException(status_code=400, detail="Invalid payload")
 
 @app.get("/health")
 async def health_check():
