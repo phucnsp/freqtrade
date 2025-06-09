@@ -40,6 +40,11 @@ async def trade_handler(payload: dict):
 
     return {"status": "success", "message": "Webhook processed"}
 
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy"}
+
 # Optional: catch all other methods or bad payloads
 @app.exception_handler(Exception)
 async def exception_handler(request: Request, exc: Exception):

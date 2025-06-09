@@ -38,6 +38,8 @@ services:
     # for more information.
     ports:
       - "127.0.0.1:3333:8080"
+    depends_on:
+      - webhook
     # Default command used when running `docker compose up`
     command: >
       trade
