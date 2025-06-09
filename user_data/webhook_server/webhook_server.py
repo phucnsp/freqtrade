@@ -14,7 +14,7 @@ class TradePayload(BaseModel):
     value3: str
 
 @app.post("/closed_trade")
-async def trade_handler(payload: dict):
+async def trade_handler(payload: Request):
     """
     Receives a webhook from Freqtrade when a trade is closed (or entry/entry_cancel).
     Freqtrade will POST JSON like:
@@ -25,7 +25,7 @@ async def trade_handler(payload: dict):
       }
     """
     logging.info("💡 Freqtrade webhook received")
-    logging.info(f"Webhook payload: {payload}")
+    # logging.info(f"Webhook payload: {payload}")
     # logging.info(f"  • value1: {payload.value1}")
     # logging.info(f"  • value2: {payload.value2}")
     # logging.info(f"  • value3: {payload.value3}")
