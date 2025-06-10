@@ -1,47 +1,33 @@
 # main.py
-from fastapi import FastAPI, Request, HTTPException
-from pydantic import BaseModel
+from fastapi import FastAPI, Form
 import logging
+from typing import Annotated
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Freqtrade Webhook Receiver")
 
-class TradePayload(BaseModel):
-    value1: str
-    value2: str
-    value3: str
-
 @app.post("/closed_trade")
-async def trade_handler(payload: Request):
+async def trade_handler(
+    value1: Annotated[str, Form()],
+    value2: Annotated[str, Form()],
+    value3: Annotated[str, Form()]
+):
     """
-    Receives a webhook from Freqtrade when a trade is closed (or entry/entry_cancel).
-    Freqtrade will POST JSON like:
-      {
-        "value1": "Buying BTC/USDT",
-        "value2": "limit 50000.00000000",
-        "value3": "0.10000000 USDT"
-      }
+    Core webhook handler for freqtrade form data.
+    Receives, parses, and responds with success.
     """
     logging.info("💡 Freqtrade webhook received")
 
-    try:
-        logging.info("Processing payload")
-        payload = await payload.json()
-        logging.info(f"Webhook payload: {payload}")
-        return {"status": "success", "message": "Webhook processed"}
-    except Exception as e:
-        logging.error(f"Error processing webhook: {e}")
-        raise HTTPException(status_code=400, detail="Invalid payload")
+    # Log the webhook data
+    logger.info(f"value1: {value1}")
+    logger.info(f"value2: {value2}")
+    logger.info(f"value3: {value3}")
+
+    return {"status": "success", "message": "Webhook processed"}
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}
-
-# Optional: catch all other methods or bad payloads
-@app.exception_handler(Exception)
-async def exception_handler(request: Request, exc: Exception):
-    logging.error(f"Error handling request: {exc}")
-    raise HTTPException(status_code=500, detail="Internal server error")
