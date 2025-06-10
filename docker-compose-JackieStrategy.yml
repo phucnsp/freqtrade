@@ -4,6 +4,7 @@ services:
     build:
       context: ./user_data/webhook_server
       dockerfile: Dockerfile
+    restart: unless-stopped
     container_name: webhook_server
     ports:
       - "8083:8083"
