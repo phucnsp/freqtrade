@@ -71,6 +71,8 @@ async def trade_handler(
             logger.info("✅ Successfully retrieved Binance spot balance")
         else:
             logger.warning("❌ Failed to retrieve Binance spot balance")
+    else:
+        logger.info("No entry signal detected")
 
     return {"status": "success", "message": "Webhook processed"}
 
