@@ -34,7 +34,6 @@ async def check_binance_spot_balance():
             return None
 
         balance = exchange.fetch_balance()
-        logger.info(f"Binance spot wallet balance: {balance}")
 
         # Log specific currencies with non-zero balances
         for currency, amounts in balance.items():
