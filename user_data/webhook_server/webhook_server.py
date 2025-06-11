@@ -66,17 +66,16 @@ async def buy_ada_with_profit(profit: float, exchange):
         logger.info(f"Attempting to buy {ada_amount} ADA at limit price {current_price} USDT")
 
         # Place limit order to buy ADA
-        # order = exchange.create_limit_buy_order(
-        #     symbol='ADA/USDT',
-        #     amount=ada_amount,
-        #     price=current_price
-        # )
+        order = exchange.create_limit_buy_order(
+            symbol='ADA/USDT',
+            amount=ada_amount,
+            price=(current_price-0.05)  # Slightly below current price to ensure order fills
+        )
 
-        # logger.info(f"✅ ADA purchase order placed successfully: {order['id']}")
-        # logger.info(f"Order details: {ada_amount} ADA at {current_price} USDT")
+        logger.info(f"✅ ADA purchase order placed successfully: {order['id']}")
+        logger.info(f"Order details: {ada_amount} ADA at {current_price} USDT")
 
-        # return order
-        return None
+        return order
 
     except Exception as e:
         logger.error(f"❌ Error buying ADA with profit: {e}")
