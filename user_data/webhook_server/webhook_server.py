@@ -69,7 +69,7 @@ async def buy_ada_with_profit(profit: float, exchange):
         order = exchange.create_limit_buy_order(
             symbol='ADA/USDT',
             amount=ada_amount,
-            price=(current_price-0.05)  # Slightly below current price to ensure order fills
+            price=current_price
         )
 
         logger.info(f"✅ ADA purchase order placed successfully: {order['id']}")
@@ -99,8 +99,8 @@ async def trade_handler(
     logger.info(f"value3: {value3}")
 
     # Check Binance spot balance if this is an entry signal
-    if "entry:" in value1.lower():
-        logger.info("Entry signal detected - checking USDT balance")
+    if "exit_fill:" in value1.lower():
+        logger.info("Exit Fill signal detected - checking USDT balance")
         usdt_balance, exchange = await get_usdt_balance()
         if usdt_balance is not None and exchange is not None:
             logger.info("✅ Successfully retrieved USDT balance")
@@ -120,7 +120,7 @@ async def trade_handler(
         else:
             logger.warning("❌ Failed to retrieve USDT balance")
     else:
-        logger.info("No entry signal detected")
+        logger.info("No exit fill signal detected")
 
     return {"status": "success", "message": "Webhook processed"}
 
