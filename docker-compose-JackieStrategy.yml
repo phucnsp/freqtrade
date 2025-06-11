@@ -10,6 +10,10 @@ services:
       - "8083:8083"
     volumes:
       - ./user_data/webhook_server:/app      # mount code in at runtime
+    environment:
+      - BINANCE_API_KEY=${BINANCE_API_KEY}
+      - BINANCE_SECRET=${BINANCE_SECRET}
+      - BINANCE_SANDBOX=${BINANCE_SANDBOX}
     command: uvicorn webhook_server:app --host 0.0.0.0 --port 8083 --reload
 
   freqtrade:
