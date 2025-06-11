@@ -1,4 +1,5 @@
 # main.py
+import asyncio
 import logging
 import os
 from typing import Annotated
@@ -98,9 +99,11 @@ async def trade_handler(
     logger.info(f"value2: {value2}")
     logger.info(f"value3: {value3}")
 
-    # Check Binance spot balance if this is an entry signal
+    # Check Binance spot balance if this is an exit_fill signal
     if "exit_fill:" in value1.lower():
-        logger.info("Exit Fill signal detected - checking USDT balance")
+        logger.info("Exit Fill signal detected - waiting 10 seconds before processing")
+        await asyncio.sleep(10)
+        logger.info("Delay completed - checking USDT balance")
         usdt_balance, exchange = await get_usdt_balance()
         if usdt_balance is not None and exchange is not None:
             logger.info("✅ Successfully retrieved USDT balance")
