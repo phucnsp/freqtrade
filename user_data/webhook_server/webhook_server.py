@@ -17,7 +17,7 @@ def get_binance_exchange():
         exchange = ccxt.binance({
             'apiKey': os.getenv('BINANCE_API_KEY'),
             'secret': os.getenv('BINANCE_SECRET'),
-            'sandbox': os.getenv('BINANCE_SANDBOX', 'false').lower() == 'true',
+            'sandbox': os.getenv('BINANCE_SANDBOX'),
             'enableRateLimit': True,
         })
         return exchange
