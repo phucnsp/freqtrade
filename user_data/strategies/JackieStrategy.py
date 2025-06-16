@@ -1023,9 +1023,9 @@ class JackieStrategy(IStrategy):
         enter_arr = dataframe['enter_long']
         exit_arr = dataframe['exit_long']
 
-        if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
-            logger.info("Found exit signal, checking for position adjustment...")
-            return -(trade.stake_amount / 4), "partial_exit"
+        # if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
+        #     logger.info("Found exit signal, checking for position adjustment...")
+        #     return -(trade.stake_amount / 4), "partial_exit"
 
         if enter_arr.iat[-1] == 1.0: # only consider candle with signal entry
             logger.info("Found entry signal, checking for position adjustment...")
