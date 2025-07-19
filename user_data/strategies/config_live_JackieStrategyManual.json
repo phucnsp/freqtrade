@@ -13,7 +13,7 @@
         "enable_openapi": false,
         "jwt_secret_key": "jackie",
         "ws_token": "jackie",
-        "CORS_origins": ["http://localhost:8088"],
+        "CORS_origins": ["http://192.168.1.2:8088"],
         "username": "jackie",
         "password": "jackie"
     },
