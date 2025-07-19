@@ -84,7 +84,7 @@ logger = logging.getLogger(__name__)
 #     return emadif
 
 
-class JackieStrategy(IStrategy):
+class JackieStrategyManual(IStrategy):
     """
     This is a strategy template to get you started.
     More information in https://www.freqtrade.io/en/latest/strategy-customization/

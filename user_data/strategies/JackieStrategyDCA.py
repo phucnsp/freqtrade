@@ -84,7 +84,7 @@ def EWO(dataframe, ewo_shortterm_length, ewo_longterm_length):
     return emadif
 
 
-class JackieStrategy(IStrategy):
+class JackieStrategyDCA(IStrategy):
     """
     This is a strategy template to get you started.
     More information in https://www.freqtrade.io/en/latest/strategy-customization/
