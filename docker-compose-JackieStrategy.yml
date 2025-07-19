@@ -18,7 +18,7 @@ services:
       - PROFIT_MIN_THRESHOLD=${PROFIT_MIN_THRESHOLD}
     command: uvicorn webhook_server:app --host 0.0.0.0 --port 8083 --reload
 
-  freqtrade:
+  freqtradeDCA:
     image: freqtradeorg/freqtrade:stable
     # image: freqtradeorg/freqtrade:develop
     # Use plotting image
@@ -37,19 +37,55 @@ services:
     #   context: .
     #   dockerfile: "./docker/Dockerfile.custom"
     restart: unless-stopped
-    container_name: freqtrade
+    container_name: freqtradeDCA
     volumes:
       - "./user_data:/freqtrade/user_data"
     # Expose api on port 8080 (localhost only)
     # Please read the https://www.freqtrade.io/en/stable/rest-api/ documentation
     # for more information.
     ports:
-      - "127.0.0.1:3333:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       - webhook
     # Default command used when running `docker compose up`
     command: >
       trade
-      --logfile /freqtrade/user_data/logs/JackieStrategy.log
-      --config /freqtrade/user_data/strategies/config_live_JackieStrategy.json
-      --strategy JackieStrategy
+      --logfile /freqtrade/user_data/logs/JackieStrategyDCA.log
+      --config /freqtrade/user_data/strategies/config_live_JackieStrategyDCA.json
+      --strategy JackieStrategyDCA
+
+  freqtradeManual:
+    image: freqtradeorg/freqtrade:stable
+    # image: freqtradeorg/freqtrade:develop
+    # Use plotting image
+    # image: freqtradeorg/freqtrade:develop_plot
+    # # Enable GPU Image and GPU Resources (only relevant for freqAI)
+    # # Make sure to uncomment the whole deploy section
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    # Build step - only needed when additional dependencies are needed
+    # build:
+    #   context: .
+    #   dockerfile: "./docker/Dockerfile.custom"
+    restart: unless-stopped
+    container_name: freqtradeManual
+    volumes:
+      - "./user_data:/freqtrade/user_data"
+    # Expose api on port 8080 (localhost only)
+    # Please read the https://www.freqtrade.io/en/stable/rest-api/ documentation
+    # for more information.
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - webhook
+    # Default command used when running `docker compose up`
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/JackieStrategyManual.log
+      --config /freqtrade/user_data/strategies/config_live_JackieStrategyManual.json
+      --strategy JackieStrategyManual
