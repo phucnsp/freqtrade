@@ -131,7 +131,7 @@ class JackieStrategyDCA(IStrategy):
 
     # These values can be overridden in the config.
     use_exit_signal = (
-        False # only exit with signal, since we are trading with good coin, can hold longer
+        True # only exit with signal, since we are trading with good coin, can hold longer
     )
     exit_profit_only = True  # if buy and then price down and sell triggered, no exit, continue hold
     exit_profit_offset = 0.01
@@ -1021,7 +1021,7 @@ class JackieStrategyDCA(IStrategy):
         # this dataframe is raw one, without shift(-1) for trade placement
         dataframe, _ = self.dp.get_analyzed_dataframe(trade.pair, self.timeframe)
         enter_arr = dataframe['enter_long']
-        exit_arr = dataframe['exit_long']
+        # exit_arr = dataframe['exit_long']
 
         # if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
         #     logger.info("Found exit signal, checking for position adjustment...")
