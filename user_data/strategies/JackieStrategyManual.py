@@ -134,7 +134,7 @@ class JackieStrategyManual(IStrategy):
         False # only exit with signal, since we are trading with good coin, can hold longer
     )
     exit_profit_only = True  # if buy and then price down and sell triggered, no exit, continue hold
-    exit_profit_offset = 0.01
+    exit_profit_offset = 0.3
     ignore_roi_if_entry_signal = False  # take roi whenever possible, force entry might stay for long time
 
     max_open_trades = 1 # set 1 so that all available_capital will go ALL, to customer_stake_amount, so that we can adjust it all as we want
