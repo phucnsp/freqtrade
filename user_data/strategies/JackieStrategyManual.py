@@ -1017,60 +1017,60 @@ class JackieStrategyManual(IStrategy):
         """
 
         # Only act if no orders are open
-        # if trade.has_open_orders:
-        #     return None
+        if trade.has_open_orders:
+            return None
 
-        # # this dataframe is raw one, without shift(-1) for trade placement
-        # dataframe, _ = self.dp.get_analyzed_dataframe(trade.pair, self.timeframe)
-        # enter_arr = dataframe['enter_long']
-        # exit_arr = dataframe['exit_long']
+        # this dataframe is raw one, without shift(-1) for trade placement
+        dataframe, _ = self.dp.get_analyzed_dataframe(trade.pair, self.timeframe)
+        enter_arr = dataframe['enter_long']
+        exit_arr = dataframe['exit_long']
 
-        # # if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
-        # #     logger.info("Found exit signal, checking for position adjustment...")
-        # #     return -(trade.stake_amount / 4), "partial_exit"
+        # if (exit_arr.iat[-1] == 1.0): # only consider candle with signal exit
+        #     logger.info("Found exit signal, checking for position adjustment...")
+        #     return -(trade.stake_amount / 4), "partial_exit"
 
-        # if enter_arr.iat[-1] == 1.0: # only consider candle with signal entry
-        #     logger.info("Found entry signal, checking for position adjustment...")
-        #     filled_entry_orders = trade.select_filled_orders(trade.entry_side)
-        #     initial_filled_entry_order = filled_entry_orders[0]
-        #     latest_filled_entry_order  = filled_entry_orders[-1]
-        #     try:
-        #         stake_amount = filled_entry_orders[
-        #             -1 # use dynamic stake_amount (from latest order), not static one(initial order), so we can dynamically keep reduce entry price be half if later entry more risky.
-        #         ].stake_amount_filled
-        #     except Exception:
-        #         return None
+        if enter_arr.iat[-1] == 1.0: # only consider candle with signal entry
+            logger.info("Found entry signal, checking for position adjustment...")
+            filled_entry_orders = trade.select_filled_orders(trade.entry_side)
+            initial_filled_entry_order = filled_entry_orders[0]
+            latest_filled_entry_order  = filled_entry_orders[-1]
+            try:
+                stake_amount = filled_entry_orders[
+                    -1 # use dynamic stake_amount (from latest order), not static one(initial order), so we can dynamically keep reduce entry price be half if later entry more risky.
+                ].stake_amount_filled
+            except Exception:
+                return None
 
-        #     # if it is a dump really fast (within 12 hours and drop 15% from the previous order), buy it with stake amount x 2 the previous stake amount
-        #     if (
-        #         ((current_time - latest_filled_entry_order.order_filled_utc) < timedelta(hours=12))
-        #         and (current_entry_rate < latest_filled_entry_order.price * 0.85)
-        #     ):
-        #         return stake_amount * 2, "fast_dump_buy"
+            # if it is a dump really fast (within 12 hours and drop 15% from the previous order), buy it with stake amount x 2 the previous stake amount
+            if (
+                ((current_time - latest_filled_entry_order.order_filled_utc) < timedelta(hours=12))
+                and (current_entry_rate < latest_filled_entry_order.price * 0.85)
+            ):
+                return stake_amount * 2, "fast_dump_buy"
 
-        #     # if we are not in downtrend, just a correction (buy signal is within -30% from the initial order)
-        #     if (current_entry_rate >= initial_filled_entry_order.price * 0.7):
+            # if we are not in downtrend, just a correction (buy signal is within -30% from the initial order)
+            if (current_entry_rate >= initial_filled_entry_order.price * 0.7):
 
-        #         # find the index of the last row with enter_long NaN (3 x NaN continuously, to be safe)
-        #         _mask_nan = enter_arr.isna() & enter_arr.shift(periods=1).isna() & enter_arr.shift(periods=2).isna()
-        #         if _mask_nan.any():
-        #             last_nan_idx = _mask_nan[_mask_nan].last_valid_index() - dataframe.index[-1] - 1  # calc the order from -1 backward
-        #         else:
-        #             return None
+                # find the index of the last row with enter_long NaN (3 x NaN continuously, to be safe)
+                _mask_nan = enter_arr.isna() & enter_arr.shift(periods=1).isna() & enter_arr.shift(periods=2).isna()
+                if _mask_nan.any():
+                    last_nan_idx = _mask_nan[_mask_nan].last_valid_index() - dataframe.index[-1] - 1  # calc the order from -1 backward
+                else:
+                    return None
 
-        #         # entry signal used to come together, as a cluster.
-        #         # if last_nan_idx > -5, like -4, -3, -2 => it might be a too small cluster or too early to buy => ignore
-        #         #
-        #         if (
-        #             (last_nan_idx <= -5)
-        #             and (latest_filled_entry_order.order_filled_utc < dataframe.iloc[last_nan_idx].date) # avoid one cluster enter 2 times
-        #         ):
-        #             filled_exit_orders = trade.select_filled_orders(trade.exit_side)
-        #             # if already exit once or price not much offset from prev one, the  entry only half amount
-        #             if filled_exit_orders or (current_entry_rate >= latest_filled_entry_order.price * 0.97):
-        #                 return stake_amount/2, "extra_half_order"
-        #             else:
-        #                 return stake_amount, "extra_order"
+                # entry signal used to come together, as a cluster.
+                # if last_nan_idx > -5, like -4, -3, -2 => it might be a too small cluster or too early to buy => ignore
+                #
+                if (
+                    (last_nan_idx <= -5)
+                    and (latest_filled_entry_order.order_filled_utc < dataframe.iloc[last_nan_idx].date) # avoid one cluster enter 2 times
+                ):
+                    filled_exit_orders = trade.select_filled_orders(trade.exit_side)
+                    # if already exit once or price not much offset from prev one, the  entry only half amount
+                    if filled_exit_orders or (current_entry_rate >= latest_filled_entry_order.price * 0.97):
+                        return stake_amount/2, "extra_half_order"
+                    else:
+                        return stake_amount, "extra_order"
 
         return None
 
