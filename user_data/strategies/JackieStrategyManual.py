@@ -1016,6 +1016,28 @@ class JackieStrategyManual(IStrategy):
                 return None
         """
 
+        min_roi_underbound = self.config.get("minimal_roi")['43200']
+        min_roi_halfway = (self.config.get("minimal_roi")['43200'] + self.config.get("minimal_roi")['43201']) / 2
+        min_roi_upperbound = self.config.get("minimal_roi")['43201']
+
+        if (current_profit >= min_roi_underbound) and (not hasattr(self, "reach_minimal_roi_underbound") or not self.reach_minimal_roi_underbound):
+            self.reach_minimal_roi_underbound = True
+            logger.info(f"Current profit {current_profit} reached minimal ROI underbound {min_roi_underbound}, selling 2/10 of the stake amount...")
+            return -(trade.stake_amount * 2 / 10), "partial_exit_underbound"
+
+        if (current_profit >= min_roi_halfway) and (not hasattr(self, "reach_minimal_roi_halfway") or not self.reach_minimal_roi_halfway):
+            self.reach_minimal_roi_halfway = True
+            logger.info(f"Current profit {current_profit} reached minimal ROI halfway {min_roi_halfway}, selling 3/10 of the stake amount...")
+            return -(trade.stake_amount * 3 / 8), "partial_exit_halfway"
+
+        if current_profit >= min_roi_upperbound:
+            logger.info(f"Current profit {current_profit} reached minimal ROI upperbound {min_roi_upperbound}, selling the rest of the stake amount...")
+            self.reach_minimal_roi_underbound = False
+            self.reach_minimal_roi_halfway = False
+            return -trade.stake_amount, "partial_exit_upperbound"
+
+        return None
+
         # Only act if no orders are open
         # if trade.has_open_orders:
         #     return None
@@ -1072,7 +1094,7 @@ class JackieStrategyManual(IStrategy):
         #             else:
         #                 return stake_amount, "extra_order"
 
-        return None
+        # return None
 
     def leverage(
         self,

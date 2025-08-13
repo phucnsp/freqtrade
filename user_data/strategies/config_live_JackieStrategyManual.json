@@ -20,7 +20,8 @@
     "available_capital": 3000, // each bot only allow to use this amount, even the wallet has more than that
     "stake_amount": "unlimited", // Amount use for each trade. "unlimited" use all available balance.
     "max_open_trades": 1,  // set 1 so that all available_capital will go ALL, to customer_stake_amount, so that we can adjust it all as we want
-    "minimal_roi": {"0": 0.3}, // if 30% profit take immediately
+    // "minimal_roi": {"0": 0.3}, // if 30% profit take immediately
+    "minimal_roi": {"43200": 0.20, "43201": 0.25}, // 43200 minute = one month, this number is set very high so that the strategy never reach the minute threshold, will not exit when minimum roi is reached. This number is for the function adjust_trade_position only.
     "timeframe": "1h",
     ///////////////// separator ///////////////////////
     "$schema": "https://schema.freqtrade.io/schema.json",
