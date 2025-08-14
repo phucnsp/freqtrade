@@ -17,7 +17,7 @@
         "username": "jackie",
         "password": "jackie"
     },
-    "available_capital": 1000, // each bot only allow to use this amount, even the wallet has more than that
+    "available_capital": 2000, // each bot only allow to use this amount, even the wallet has more than that
     "stake_amount": "unlimited", // Amount use for each trade. "unlimited" use all available balance.
     "max_open_trades": 1,  // set 1 so that all available_capital will go ALL, to customer_stake_amount, so that we can adjust it all as we want
     "minimal_roi": {"0": 0.3, "4320": 0.0}, // if 30% profit take immediately, if 3 days without profit, exit it
