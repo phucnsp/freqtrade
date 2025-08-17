@@ -1,4 +1,3 @@
-1. Crawl useful repo on github that might relate to freqtrade => help to learn the community working space of freqtrade and utils repo that might help many steps
 2. From the web ninja (contains many strategies), run backtest with ADA on 3 timeframes(5m, 15m, 1h) and 3 timerange(downtrend, sideway, uptrend) => pick the 4 strategies that have resilient performance on
 those timeranges and timeframes. See notebooks directory for the code, and backtest_results for the result of backtest.
 3. Setup dryrun on VPS, monitoring on local pc using port forwarding with SSH
@@ -26,8 +25,8 @@ docker compose run --rm freqtrade new-config --config user_data/config.json
 ############# config, download data
 ##########################################################################
 docker compose run --rm freqtrade new-config --config user_data/config_backtest.json
-freqtrade list-data -p BTC/USDT ADA/USDT --config user_data/config_live_JackieStrategy.json --show-timerange
-freqtrade download-data -p BTC/USDT --erase --timerange=20180101-20250430 --timeframe 5m --config user_data/config_live_JackieStrategy.json
+freqtrade list-data -p PAXG/USDT --config user_data/config_backtest_paxg.json --show-timerange
+freqtrade download-data -p PAXG/USDT --erase --timerange=20200101-20250630 --timeframe 1h --config user_data/config_backtest_paxg.json
 docker compose run --rm freqtrade download-data --config user_data/config_backtest.json --prepend --timerange=20180101-20250430 --timeframe 5m
 time freqtrade list-data --show-timerange --data-format-ohlcv feather --config user_data/config_backtest.json
 docker compose run --rm  freqtrade list-data --userdir ~/.freqtrade/user_data/
@@ -104,6 +103,8 @@ Setting dedicated for each strategy should be put in each .py file
 - To check autossh working: lsof -i :8080, ps aux | grep autossh
 - To avoid repeating input password to login VPS, use: ssh-copy-id root@103.112.210.187 (it will copy publibc key of RSA of local pc and paste into remote VPS)
 - VPS use tmux to navigate around, see tmux session at the end of this file
+- git clone https://github.com/phucnsp/freqtrade
+- scp Desktop/dotfiles/tmux.conf root@103.122.210.187:/root/.tmux.conf
 + tmux ls => list the current running tmux session
 + tmux attach -t <session_name> => go to the session we want
 + tmux new -s <new_tmux_session> => create new tmux session
