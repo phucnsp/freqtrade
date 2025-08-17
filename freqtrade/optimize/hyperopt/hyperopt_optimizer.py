@@ -6,7 +6,7 @@ and will be sent to the hyperopt worker processes.
 import logging
 import sys
 import warnings
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +45,7 @@ from freqtrade.util.dry_run_wallet import get_dry_run_wallet
 
 logger = logging.getLogger(__name__)
 
+INITIAL_POINTS = 30
 
 MAX_LOSS = 100000  # just a big enough number to be bad result in loss optimization
 
@@ -272,7 +273,7 @@ class HyperOptimizer:
         Keep this function as optimized as possible!
         """
         HyperoptStateContainer.set_state(HyperoptState.OPTIMIZE)
-        backtest_start_time = datetime.now(timezone.utc)
+        backtest_start_time = datetime.now(UTC)
 
         # Apply parameters
         if HyperoptTools.has_space(self.config, "buy"):
@@ -329,7 +330,7 @@ class HyperOptimizer:
         bt_results = self.backtesting.backtest(
             processed=processed, start_date=self.min_date, end_date=self.max_date
         )
-        backtest_end_time = datetime.now(timezone.utc)
+        backtest_end_time = datetime.now(UTC)
         bt_results.update(
             {
                 "backtest_start_time": int(backtest_start_time.timestamp()),
@@ -425,7 +426,16 @@ class HyperOptimizer:
                 raise OperationalException(f"Optuna Sampler {o_sampler} not supported.")
             with warnings.catch_warnings():
                 warnings.filterwarnings(action="ignore", category=ExperimentalWarning)
-                sampler = optuna_samplers_dict[o_sampler](seed=random_state)
+                if o_sampler in ["NSGAIIISampler", "NSGAIISampler"]:
+                    sampler = optuna_samplers_dict[o_sampler](
+                        seed=random_state, population_size=INITIAL_POINTS
+                    )
+                elif o_sampler in ["GPSampler", "TPESampler", "CmaEsSampler"]:
+                    sampler = optuna_samplers_dict[o_sampler](
+                        seed=random_state, n_startup_trials=INITIAL_POINTS
+                    )
+                else:
+                    sampler = optuna_samplers_dict[o_sampler](seed=random_state)
         else:
             sampler = o_sampler
 

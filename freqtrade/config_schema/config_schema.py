@@ -157,6 +157,16 @@ CONF_SCHEMA = {
             "description": f"Offset for profit exit. {__IN_STRATEGY}",
             "type": "number",
         },
+        "recursive_strategy_search": {
+            "description": "Enable recursive strategy search.",
+            "type": "boolean",
+        },
+        "user_data_dir": {
+            "description": "Path to the user data directory.",
+        },
+        "datadir": {
+            "description": "Path to the data directory.",
+        },
         "fee": {
             "description": "Trading fee percentage. Can help to simulate slippage in backtesting",
             "type": "number",
@@ -423,10 +433,6 @@ CONF_SCHEMA = {
             "description": "Exchange configuration.",
             "$ref": "#/definitions/exchange",
         },
-        "edge": {
-            "description": "Edge configuration.",
-            "$ref": "#/definitions/edge",
-        },
         "log_config": {
             "description": "Logging configuration.",
             "$ref": "#/definitions/logging",
@@ -447,6 +453,7 @@ CONF_SCHEMA = {
         "pairlists": {
             "description": "Configuration for pairlists.",
             "type": "array",
+            "minItems": 1,
             "items": {
                 "type": "object",
                 "properties": {
@@ -913,29 +920,21 @@ CONF_SCHEMA = {
                 },
                 "ccxt_config": {"description": "CCXT configuration settings.", "type": "object"},
                 "ccxt_async_config": {
-                    "description": "CCXT asynchronous configuration settings.",
+                    "description": (
+                        "CCXT asynchronous configuration settings."
+                        "Usually ccxt_config should be used instead."
+                    ),
+                    "type": "object",
+                },
+                "ccxt_sync_config": {
+                    "description": (
+                        "CCXT synchronous configuration settings. "
+                        "Usually ccxt_config should be used instead."
+                    ),
                     "type": "object",
                 },
             },
             "required": ["name"],
-        },
-        "edge": {
-            "type": "object",
-            "properties": {
-                "enabled": {"type": "boolean"},
-                "process_throttle_secs": {"type": "integer", "minimum": 600},
-                "calculate_since_number_of_days": {"type": "integer"},
-                "allowed_risk": {"type": "number"},
-                "stoploss_range_min": {"type": "number"},
-                "stoploss_range_max": {"type": "number"},
-                "stoploss_range_step": {"type": "number"},
-                "minimum_winrate": {"type": "number"},
-                "minimum_expectancy": {"type": "number"},
-                "min_trade_number": {"type": "number"},
-                "max_trade_duration_minute": {"type": "integer"},
-                "remove_pumps": {"type": "boolean"},
-            },
-            "required": ["process_throttle_secs", "allowed_risk"],
         },
         "logging": {
             "type": "object",
@@ -1383,6 +1382,7 @@ SCHEMA_TRADE_REQUIRED = [
     "entry_pricing",
     "stoploss",
     "minimal_roi",
+    "pairlists",
     "internals",
     "dataformat_ohlcv",
     "dataformat_trades",
@@ -1392,6 +1392,7 @@ SCHEMA_BACKTEST_REQUIRED = [
     "exchange",
     "stake_currency",
     "stake_amount",
+    "pairlists",
     "dry_run_wallet",
     "dataformat_ohlcv",
     "dataformat_trades",

@@ -18,12 +18,10 @@ from freqtrade.data.btanalysis import (
     load_backtest_data,
     load_backtest_stats,
 )
-from freqtrade.edge import PairInfo
 from freqtrade.enums import ExitType
 from freqtrade.optimize.optimize_reports import (
     generate_backtest_stats,
     generate_daily_stats,
-    generate_edge_table,
     generate_pair_metrics,
     generate_periodic_breakdown_stats,
     generate_strategy_comparison,
@@ -454,7 +452,6 @@ def test_generate_pair_metrics():
     assert (
         pytest.approx(pair_results[-1]["profit_mean_pct"]) == pair_results[-1]["profit_mean"] * 100
     )
-    assert pytest.approx(pair_results[-1]["profit_sum_pct"]) == pair_results[-1]["profit_sum"] * 100
 
 
 def test_generate_daily_stats(testdatadir):
@@ -644,15 +641,6 @@ def test_text_table_strategy(testdatadir, capsys):
         r"260.85 .* 3:40:00 .* 170     0     9  95.0 .* 0.00308222 BTC  8.67%.*",
         text,
     )
-
-
-def test_generate_edge_table(capsys):
-    results = {}
-    results["ETH/BTC"] = PairInfo(-0.01, 0.60, 2, 1, 3, 10, 60)
-    generate_edge_table(results)
-    text = capsys.readouterr().out
-    assert re.search(r".* ETH/BTC .*", text)
-    assert re.search(r".* Risk Reward Ratio .* Required Risk Reward .* Expectancy .*", text)
 
 
 def test_generate_periodic_breakdown_stats(testdatadir):

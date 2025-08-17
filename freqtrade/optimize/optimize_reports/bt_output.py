@@ -332,8 +332,11 @@ def text_table_add_metrics(strat_results: dict) -> None:
                 ),
             ),
             (
-                "Avg. daily profit %",
-                f"{(strat_results['profit_total'] / strat_results['backtest_days']):.2%}",
+                "Avg. daily profit",
+                fmt_coin(
+                    (strat_results["profit_total_abs"] / strat_results["backtest_days"]),
+                    strat_results["stake_currency"],
+                ),
             ),
             (
                 "Avg. stake amount",
@@ -499,33 +502,3 @@ def show_sorted_pairlist(config: Config, backtest_stats: BacktestResultType):
                 if result["key"] != "TOTAL":
                     print(f'"{result["key"]}",  // {result["profit_mean"]:.2%}')
             print("]")
-
-
-def generate_edge_table(results: dict) -> None:
-    tabular_data = []
-    headers = [
-        "Pair",
-        "Stoploss",
-        "Win Rate",
-        "Risk Reward Ratio",
-        "Required Risk Reward",
-        "Expectancy",
-        "Total Number of Trades",
-        "Average Duration (min)",
-    ]
-
-    for result in results.items():
-        if result[1].nb_trades > 0:
-            tabular_data.append(
-                [
-                    result[0],
-                    f"{result[1].stoploss:.10g}",
-                    f"{result[1].winrate:.2f}",
-                    f"{result[1].risk_reward_ratio:.2f}",
-                    f"{result[1].required_risk_reward:.2f}",
-                    f"{result[1].expectancy:.2f}",
-                    result[1].nb_trades,
-                    round(result[1].avg_trade_duration),
-                ]
-            )
-    print_rich_table(tabular_data, headers, summary="EDGE TABLE")

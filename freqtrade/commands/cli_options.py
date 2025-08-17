@@ -204,12 +204,16 @@ AVAILABLE_CLI_OPTIONS = {
         help="Export backtest results (default: trades).",
         choices=constants.EXPORT_OPTIONS,
     ),
+    "backtest_notes": Arg(
+        "--notes",
+        help="Add notes to the backtest results.",
+        metavar="TEXT",
+    ),
     "exportfilename": Arg(
-        "--export-filename",
         "--backtest-filename",
+        "--export-filename",
         help="Use this filename for backtest results."
-        "Requires `--export` to be set as well. "
-        "Example: `--export-filename=user_data/backtest_results/backtest_today.json`",
+        "Example: `--backtest-filename=user_data/backtest_results/`",
         metavar="PATH",
     ),
     "disableparamexport": Arg(
@@ -234,13 +238,6 @@ AVAILABLE_CLI_OPTIONS = {
         help="Load a cached backtest result no older than specified age (default: %(default)s).",
         default=constants.BACKTEST_CACHE_DEFAULT,
         choices=constants.BACKTEST_CACHE_AGE,
-    ),
-    # Edge
-    "stoploss_range": Arg(
-        "--stoplosses",
-        help="Defines a range of stoploss values against which edge will assess the strategy. "
-        'The format is "min,max,step" (without any space). '
-        "Example: `--stoplosses=-0.01,-0.1,-0.001`",
     ),
     # Hyperopt
     "hyperopt": Arg(
@@ -369,6 +366,11 @@ AVAILABLE_CLI_OPTIONS = {
         "-a",
         "--all",
         help="Print all exchanges known to the ccxt library.",
+        action="store_true",
+    ),
+    "dex_exchanges": Arg(
+        "--dex-exchanges",
+        help="Print only DEX exchanges.",
         action="store_true",
     ),
     # List pairs / markets

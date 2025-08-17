@@ -743,7 +743,7 @@ class Backtesting:
         if order and self._get_order_filled(order.ft_price, row):
             order.close_bt_order(current_date, trade)
             self._run_funding_fees(trade, current_date, force=True)
-            strategy_safe_wrapper(self.strategy.order_filled, default_retval=None)(
+            strategy_safe_wrapper(self.strategy.order_filled, supress_error=True)(
                 pair=trade.pair,
                 trade=trade,  # type: ignore[arg-type]
                 order=order,
@@ -1822,7 +1822,11 @@ class Backtesting:
         # Update old results with new ones.
         if len(self.all_bt_content) > 0:
             results = generate_backtest_stats(
-                data, self.all_bt_content, min_date=min_date, max_date=max_date
+                data,
+                self.all_bt_content,
+                min_date=min_date,
+                max_date=max_date,
+                notes=self.config.get("backtest_notes"),
             )
             if self.results:
                 self.results["metadata"].update(results["metadata"])

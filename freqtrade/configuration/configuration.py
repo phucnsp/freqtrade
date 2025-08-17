@@ -2,7 +2,6 @@
 This module contains the configuration class
 """
 
-import ast
 import logging
 import warnings
 from collections.abc import Callable
@@ -19,10 +18,7 @@ from freqtrade.constants import Config
 from freqtrade.enums import (
     NON_UTIL_MODES,
     TRADE_MODES,
-    CandleType,
-    MarginMode,
     RunMode,
-    TradingMode,
 )
 from freqtrade.exceptions import OperationalException
 from freqtrade.loggers import setup_logging
@@ -87,9 +83,6 @@ class Configuration:
         # Normalize config
         if "internals" not in config:
             config["internals"] = {}
-
-        if "pairlists" not in config:
-            config["pairlists"] = []
 
         # Keep a copy of the original configuration file
         config["original_config"] = deepcopy(config)
@@ -310,16 +303,9 @@ class Configuration:
             ("backtest_cache", "Parameter --cache={} detected ..."),
             ("disableparamexport", "Parameter --disableparamexport detected: {} ..."),
             ("freqai_backtest_live_models", "Parameter --freqai-backtest-live-models detected ..."),
+            ("backtest_notes", "Parameter --notes detected: {} ..."),
         ]
         self._args_to_config_loop(config, configurations)
-
-        # Edge section:
-        if self.args.get("stoploss_range"):
-            txt_range = ast.literal_eval(self.args["stoploss_range"])
-            config["edge"].update({"stoploss_range_min": txt_range[0]})
-            config["edge"].update({"stoploss_range_max": txt_range[1]})
-            config["edge"].update({"stoploss_range_step": txt_range[2]})
-            logger.info("Parameter --stoplosses detected: %s ...", self.args["stoploss_range"])
 
         # Hyperopt section
 
@@ -405,11 +391,6 @@ class Configuration:
         self._args_to_config(
             config, argname="trading_mode", logstring="Detected --trading-mode: {}"
         )
-        config["candle_type_def"] = CandleType.get_default(
-            config.get("trading_mode", "spot") or "spot"
-        )
-        config["trading_mode"] = TradingMode(config.get("trading_mode", "spot") or "spot")
-        config["margin_mode"] = MarginMode(config.get("margin_mode", "") or "")
         self._args_to_config(
             config, argname="candle_types", logstring="Detected --candle-types: {}"
         )
