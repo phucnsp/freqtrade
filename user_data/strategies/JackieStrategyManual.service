@@ -1,0 +1,19 @@
+[Unit]
+Description=Jackie Strategy Manual
+
+[Service]
+WorkingDirectory=/root/freqtrade
+ExecStart=/root/freqtrade/.env/bin/freqtrade trade --config /root/freqtrade/user_data/strategies/config_live_JackieStrategyManual.json
+Restart=always
+RestartSec=10
+Type=notify
+NotifyAccess=all
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=JackieStrategyManual
+User=root
+Group=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

@@ -3,8 +3,12 @@
     // this session might be changed between strategies
     "strategy": "JackieStrategyManual",
     "bot_name": "live_JackieStrategyManual",
+    "user_data_dir": "/root/freqtrade/user_data/",
+    "strategy_path": "/root/freqtrade/user_data/strategies",
     "dry_run": false,
-    "db_url": "sqlite:///tradesv3.live.JackieStrategyManual.sqlite",
+    "db_url": "sqlite:////root/freqtrade/user_data/strategies/JackieStrategyManual.sqlite",
+    // "db_url": "sqlite:///tradesv3.live.JackieStrategyManual.sqlite",
+    "logfile": "syslog:/dev/log",
     "api_server": {
         "enabled": true,
         "listen_ip_address": "0.0.0.0",
@@ -87,7 +91,7 @@
     ],
     "recursive_strategy_search" : true,
     "telegram": {
-        "enabled": false,
+        "enabled": true,
         "token": "",
         "chat_id": "",
         "allow_custom_messages": true,
