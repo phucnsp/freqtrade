@@ -50,7 +50,7 @@ docker compose run --rm freqtrade backtesting-analysis -c <config.json> --timera
 docker compose run --rm freqtrade backtesting-analysis -c <config.json> --rejected-signals
 docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv
 docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv --rejected-signals --analysis-groups 0 1
-docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysis-to-csv --analysis-csv-path another/data/path/
+docker compose run --rm freqtrade backtesting-analysis -c <config.json> --analysisw-to-csv --analysis-csv-path another/data/path/
 
 ##########################################################################
 ############# Look ahead analysis https://www.freqtrade.io/en/latest/lookahead-analysis/
@@ -99,16 +99,10 @@ Setting dedicated for each strategy should be put in each .py file
 ############# Setup VPS and Dry run
 ##########################################################################
 
-ssh -f -N \
-    -L 8081:localhost:8081 \
-    -L 8082:localhost:8082 \
-    -L 8088:localhost:8082 \
-    root@103.112.210.187
-
 - VPS panel and other related websites are bookmarked in Microsoft Edge
-- SSH remote vps: sshpass -p <vps_password> ssh root@103.112.210.187
-- AUTOSSH to keep connect with vps, avoid broken pipe: autossh -M 0 -f -N -o "ServerAliveInterval=30" -o "ServerAliveCountMax=3" -L 8080:localhost:3333 root@103.112.210.187
-- multiple bots autossh: autossh -M 0 -f -N -o "ServerAliveInterval=30" -o "ServerAliveCountMax=3" -L 8001:localhost:8081 -L 8082:localhost:8082 -L 8088:localhost:8082 root@103.112.210.187
+- SSH remote vps: sshpass -p Vanhung1951 ssh root@103.112.210.187
+- SSH port: ssh -f -N -L 8081:localhost:8081 -L 8082:localhost:8082 root@103.112.210.187
+- multiple bots autossh: autossh -M 0 -f -N -o "ServerAliveInterval=30" -o "ServerAliveCountMax=3" -L 8001:localhost:8081 -L 8082:localhost:8082 root@103.112.210.187
 - To check autossh working: lsof -i :8080, ps aux | grep autossh
 - To avoid repeating input password to login VPS, use: ssh-copy-id root@103.112.210.187 (it will copy publibc key of RSA of local pc and paste into remote VPS)
 - VPS use tmux to navigate around, see tmux session at the end of this file
@@ -119,16 +113,39 @@ ssh -f -N \
 + tmux new -s <new_tmux_session> => create new tmux session
 + Ctrl_A + v/h => split the screen
 + can use mouse to select the pane
-+ if want to copy file content => exit tmux session, use nano to open file and copy content with Command_C + Command_V as normal
-- install docker engine: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-- use docker to run freqtrade, go to install with docker session in freqtrade docs.
 - Each dry_run will have separate: (1) config.json, (2) strategy file, (3) database sqlite
-- copy strategy and config from local to vps: scp user_data/config_live_JackieStrategy.json root@103.112.210.187:/root/ft_userdata/user_data/config_live_JackieStrategy.json
-- Dry_run will be triggered using docker-compose.yml file, with the command: docker compose up -d (all parameter should be stored in static files like config.json)
-- we can monitor the bot run using either telegram or WebUI
-- WebUI:
-    + docker-compose.yaml: ports: 127.0.0.1:3333:8080 => vps port 3333 is pointing to the port 8080 of docker container (this container is serving the bot)
-    + ssh -L 8080:localhost:3333 root@103.112.210.187 => connect port 8080 on local pc to the remote pvs port 3333
+
+##########################################################################
+############# setup multiple bot using system service
+##########################################################################
+
+https://www.youtube.com/watch?v=FNtV3zRWf2U
+
+cp user_data/strategies/bot.service /etc/systemd/system/bot.service
+
+# anytime we change the service file, need to reload the daemon
+systemctl daemon-reload
+
+# Stop the service
+sudo systemctl stop JackieStrategyDCA
+
+# Start the service
+sudo systemctl start JackieStrategyDCA
+
+# Restart the service
+sudo systemctl restart JackieStrategyDCA
+
+# Check the status of the service
+sudo systemctl status JackieStrategyDCA
+
+# Enable the service to start on boot
+sudo systemctl enable JackieStrategyDCA
+
+# Disable the service from starting on boot
+sudo systemctl disable JackieStrategyDCA
+
+# View recent logs for the service
+sudo journalctl -u JackieStrategyDCA -f
 
 
 ##########################################################################
