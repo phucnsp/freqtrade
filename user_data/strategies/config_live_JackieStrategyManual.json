@@ -132,7 +132,7 @@
         "process_throttle_secs": 5
     },
     "webhook": {
-        "enabled": true,
+        "enabled": false,
         "url": "http://webhook:8083/closed_trade",
         "entry": {
             "value1": "entry:{pair}",
