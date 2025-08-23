@@ -1016,6 +1016,11 @@ class JackieStrategyManual(IStrategy):
                 return None
         """
 
+        # exit strategy: use config['minimal_roi'] to set two threshold for exit,
+        # for example:
+        # - exit 2/10 if reached 20% profit
+        # - exit 3/10 if reached 22.5% profit
+        # - exit 5/10 if reached 25% profit
         min_roi_underbound = self.config.get("minimal_roi")['43200']
         min_roi_halfway = (self.config.get("minimal_roi")['43200'] + self.config.get("minimal_roi")['43201']) / 2
         min_roi_upperbound = self.config.get("minimal_roi")['43201']
@@ -1035,6 +1040,14 @@ class JackieStrategyManual(IStrategy):
             self.reach_minimal_roi_underbound = False
             self.reach_minimal_roi_halfway = False
             return -trade.stake_amount, "partial_exit_upperbound"
+
+        # enter strategy:
+        # if we are in a trade, check the previous filled order, if current price is about 5% less than previous filled price, then buy with half of stake_amount
+        if current_profit < 0:
+            filled_entry_orders = trade.select_filled_orders(trade.entry_side)
+            latest_filled_entry_order = filled_entry_orders[-1]
+            if current_entry_rate <= latest_filled_entry_order.price * 0.95:
+                return trade.stake_amount / 2, "dca_buy"
 
         return None
 
