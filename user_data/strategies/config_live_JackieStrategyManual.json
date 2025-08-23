@@ -93,7 +93,7 @@
     "telegram": {
         "enabled": true,
         "token": "",
-        "chat_id": "",
+        "chat_id": "1632534117",
         "allow_custom_messages": true,
         "notification_settings": {
             "status": "silent",
