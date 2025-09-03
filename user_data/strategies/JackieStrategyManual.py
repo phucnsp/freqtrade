@@ -1046,7 +1046,7 @@ class JackieStrategyManual(IStrategy):
         if current_profit < 0:
             filled_entry_orders = trade.select_filled_orders(trade.entry_side)
             latest_filled_entry_order = filled_entry_orders[-1]
-            if current_entry_rate <= latest_filled_entry_order.price * 0.95:
+            if current_entry_rate <= latest_filled_entry_order.price * 0.96:
                 return trade.stake_amount / 2, "dca_buy"
 
         return None
