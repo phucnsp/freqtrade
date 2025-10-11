@@ -1046,8 +1046,13 @@ class JackieStrategyManual(IStrategy):
         if current_profit < 0:
             filled_entry_orders = trade.select_filled_orders(trade.entry_side)
             latest_filled_entry_order = filled_entry_orders[-1]
-            if current_entry_rate <= latest_filled_entry_order.price * 0.96:
-                return trade.stake_amount / 2, "dca_buy"
+            # for the if below, add condition of the latest order is at least 1 day ago, to avoid too many orders in a short time
+            if (current_entry_rate <= latest_filled_entry_order.price * 0.96) and (current_time - latest_filled_entry_order.order_filled_utc) > timedelta(days=1):
+                # dca amount is equal lastest order stake amount
+                dca_amount = latest_filled_entry_order.stake_amount_filled
+                logger.info(f"Current entry rate {current_entry_rate} is 4% less than the latest filled entry order price {latest_filled_entry_order.price}, buying with same of stake amount...")
+                logger.info(f"Price dropped more than 4% from the latest entry order, placing DCA order with amount {dca_amount}")
+                return dca_amount, "dca_buy"
 
         return None
 
